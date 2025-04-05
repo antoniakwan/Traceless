@@ -3,10 +3,12 @@ from flask_cors import CORS
 import os
 from google import genai
 from PIL import Image, ImageDraw, ImageFont
+import imageAnalyze.gem as gem
 
 app = Flask(__name__)
 # CORS(app)  # Enable CORS for all routes
-CORS(app, origins=["http://localhost:5173"])
+# CORS(app, origins=["http://localhost:5173"])
+CORS(app, resources={r"/analyze": {"origins": "http://localhost:5173"}})
 
 UPLOAD_FOLDER = './uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -43,6 +45,23 @@ def upload_file():
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
     file.save(file_path)
     return "You did great", 200
+
+@app.route('/analyze', methods=['POST'])
+def analyze():
+    if 'file' not in request.files:
+        return 'No file part', 400
+    
+    file = request.files['file']
+    
+    # If no file is selected
+    if file.filename == '':
+        return 'No selected file', 400
+    
+    # Save the file to the defined folder
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+    file.save(file_path)
+
+    return gem.analyzeImage(file_path), 200
 
 
 def add_watermark(input_image_path, output_image_path, watermark_text):

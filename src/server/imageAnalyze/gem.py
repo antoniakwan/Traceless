@@ -3,8 +3,10 @@ from google import genai
 from dotenv import load_dotenv
 from PIL import Image
 # API key loading and loading up Genmini
-load_dotenv('key.env')
+load_dotenv('./imageAnalyze/key.env')
 key=os.getenv('GENTOKEN')
+print(key)
+
 client = genai.Client(api_key = key)
 # Analyzation function, taking in an image path
 def analyzeImage(img):
@@ -98,7 +100,7 @@ Check your response carefully so it can be easily readable, and include all pote
                    
 And do not include \"*\" or anything since readability is very important. This is supposed to be a tool on a website to help warn users pictures.""",Image.open(img)]
     )   
-    return(response.text)
+    return response.text
 
 #just testing
 #print(analyzeImage("C:\\Users\\zhang\\Downloads\\10m.png"))

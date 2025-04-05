@@ -37,12 +37,12 @@ export const JPGEditor: React.FC<{ inputFile: File }> = ({ inputFile }) => {
     const formData = new FormData();
     formData.append('file', inputFile); // 'file' is the name of the field you want to send
 
-    axios.post('http://127.0.0.1:5000/upload', formData, {
+    axios.post('http://127.0.0.1:5000/analyze', formData, {
       headers: {
         'Content-Type': 'multipart/form-data', // Tell the server that the body contains a file
       },
     })
-    .then(r => console.log("Good.")).catch(e => console.error(e))
+    .then(r => {console.log("Happy path"); console.log(r)}).catch(e => {console.error("Not so happy path"); console.error(e)})
   }, [transmit, inputFile])
 
   const handleContinue = () => {
