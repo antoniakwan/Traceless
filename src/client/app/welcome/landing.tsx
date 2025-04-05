@@ -9,14 +9,16 @@ interface Styles {
   button: React.CSSProperties;
 }
 
-const FileUploadDownload: React.FC = () => {
+export const Landing: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
 
   // Handle file upload
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    console.log("File uploaded.")
     const selectedFile = event.target.files ? event.target.files[0] : null;
     setFile(selectedFile);
-  };
+    console.log("File uploaded.")
+  }
 
   // Handle file download
   const handleDownload = (): void => {
@@ -28,13 +30,17 @@ const FileUploadDownload: React.FC = () => {
       a.click();
       URL.revokeObjectURL(url);
     }
-  };
+  }
+
+  console.log("Does anything work?")
 
   return (
     <div style={styles.container}>
       <div style={styles.card}>
         <h2>Upload and Download Files</h2>
+        <label></label>
         <input
+          id = "HALLO"
           type="file"
           onChange={handleFileChange}
           style={styles.input}
@@ -91,4 +97,3 @@ const styles: Styles = {
   },
 };
 
-export default FileUploadDownload;
