@@ -15,20 +15,6 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 # Configure Flask to use the upload folder
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-@app.route('/analyze')
-def index():
-    # Sample data to send as JSON
-    data = {
-        'message': 'Hello from Flask, here we are, very good.',
-        # 'status': 'success',
-        # 'data': {
-        #     'id': 1,
-        #     'name': 'Sample Item'
-        # }
-    }
-    
-    return jsonify(data)
-
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
