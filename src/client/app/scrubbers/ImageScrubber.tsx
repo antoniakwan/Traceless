@@ -60,6 +60,19 @@ const dataURLToBlob = (dataURL : string) : Blob => {
  * @returns A promise resolving to the image with edited EXIF data
  */
 const editData = async (file: File, artist: String, make: String, model: String, latitude: number, longitude: number, dateTime: Date, timeZone: number) : Promise<string> => {
+/**
+ * Edit EXIF data for an image.
+ * @param file - The File object (image) to edit EXIF data
+ * @param artist - New artist name
+ * @param make - Camera make
+ * @param model - Camera model
+ * @param latitude - GPS latitude
+ * @param longitude - GPS longitude
+ * @param dateTime - Date and time of the photo (should be a Date object)
+ * @param timeZone - Time zone offset in minutes (e.g., -300 for UTC-5)
+ * @returns A promise resolving to the image with edited EXIF data
+ */
+const editData = async (file: File, artist: String, make: String, model: String, latitude: number, longitude: number, dateTime: Date, timeZone: number) : Promise<string> => {
   try {
     const dataUrl = await readFileAsDataURL(file);
 
