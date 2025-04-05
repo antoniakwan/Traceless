@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { strip, edit } from '~/scrubbers/ImageScrubber';
 import { scrubPDF } from '~/scrubbers/PdfScrubber'; 
+import { useNavigate } from 'react-router';
+import { Styles } from 'app/Style';
 import axios from 'axios';
 // Define a proper interface for the styles
 
@@ -10,9 +12,10 @@ import axios from 'axios';
 // }
 
 export const Landing: React.FC = () => {
-  const [inputFile, setInputFile] = useState<File | null>(null);
-  const [fixed, setFixed] = useState<boolean>(false);
-  const [outputFile, setOutputFile] = useState<Blob | null>(null);
+    const navigate = useNavigate();     
+    const [inputFile, setInputFile] = useState<File | null>(null);
+    const [fixed, setFixed] = useState<boolean>(false);
+    const [outputFile, setOutputFile] = useState<Blob | null>(null);
   const [transmit, setTransmit] = useState<boolean>(false)
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) : void => {
@@ -46,10 +49,12 @@ export const Landing: React.FC = () => {
     const fileType : string | undefined = inputFile.name.split(".").pop();
     if (!fileType) return;
     if (fileType === "pdf"){
-      
+        navigate('/editor', { state: { type: "PDF", file: inputFile } });
+        
       scrubPDF(inputFile).then(setOutputFile);
     } else if (['jpg', 'jpeg'].includes(fileType)) {
-      edit(inputFile, "Mark Pock", "Canon", "Hello World", 0, 100, new Date(Date.now()), -7).then(setOutputFile)
+        navigate('/editor', { state: { type: "Image", file: inputFile } });
+        edit(inputFile, "Mark Pock", "Canon", "Hello World", 0, 100, new Date(Date.now()), -7).then(setOutputFile)
       // strip(inputFile).then(setOutputFile)
     }
   }, [fixed, inputFile])
@@ -103,50 +108,3 @@ export const Landing: React.FC = () => {
     </div>
   );
 };
-
-
-namespace Styles {
-  export const container : React.CSSProperties = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    backgroundColor: '#f0f0f0',
-    margin: 0,
-  }
-
-  export const card : React.CSSProperties = {
-    textAlign: 'center',
-    backgroundColor: 'white',
-    padding: '20px',
-    borderRadius: '8px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    width: '300px',
-    color: 'black',
-  }
-
-  export const input : React.CSSProperties = {
-    marginBottom: '20px',
-    padding: '10px',
-    width: '100%',
-    borderRadius: '4px',
-    border: '1px solid #ccc',
-    color: 'black',
-    display : '',
-  }
-
-  export const buttons : React.CSSProperties = {
-    display: 'flex',
-    justifyContent: 'space-around',
-  }
-
-  export const button : React.CSSProperties = {
-    padding: '10px 20px',
-    backgroundColor: '#007BFF',
-    color: 'white',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    margin: '5px',
-  }
-}
