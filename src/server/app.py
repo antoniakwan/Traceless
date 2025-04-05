@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 import os
 from google import genai
@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 app = Flask(__name__)
 # CORS(app)  # Enable CORS for all routes
-CORS(app, origins=["http://localhost:5173"])
+CORS(app, resources={r"/analyze": {"origins": "http://localhost:5173"}, r"/watermark": {"origins": "http://localhost:5173"}})
 
 UPLOAD_FOLDER = './uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -71,7 +71,46 @@ def add_watermark(input_image_path, output_image_path, watermark_text):
     # Save the result
     image.convert('RGB').save(output_image_path)
 
+#Watermark Endpoint
+@app.route('/watermark', methods=['POST'])
+def watermark_image():
+    if 'file' not in request.files:
+        return jsonify({'status': 'error', 'message': 'No file part'}), 400
+    
+    watermark_text = request.form.get('watermark_text', 'Watermark')
+    
+    file = request.files['file']
+    
+    # If no file is selected
+    if file.filename == '':
+        return jsonify({'status': 'error', 'message': 'No selected file'}), 400
+    
+    # Save the original file
+    input_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+    file.save(input_path)
+    
+    # Create output filename
+    filename, ext = os.path.splitext(file.filename)
+    output_filename = f"{filename}_watermarked{ext}"
+    output_path = os.path.join(app.config['UPLOAD_FOLDER'], output_filename)
+    
+    # Add watermark
+    add_watermark(input_path, output_path, watermark_text)
+    
+    # Return the URL to access the watermarked image
+    return jsonify({
+        'status': 'success',
+        'watermarked_image': f"/get_image/{output_filename}"
+    })
+
+# Add this endpoint to retrieve images
+@app.route('/get_image/<filename>')
+def get_image(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
 # Example usage
+
+
 
 
 if __name__ == '__main__':

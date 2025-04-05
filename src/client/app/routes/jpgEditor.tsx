@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './editor.css';
-import { strip, edit, wipeAll } from '../scrubbers/ImageScrubber';;
+import { strip, edit, wipeAll } from '../scrubbers/ImageScrubber';
+import { ImageService } from './imageService';
 
 export const JPGEditor: React.FC<{ inputFile: File }> = ({ inputFile }) => {
   const [privacyLevel, setPrivacyLevel] = useState('standard');
@@ -13,6 +14,7 @@ export const JPGEditor: React.FC<{ inputFile: File }> = ({ inputFile }) => {
     Artist: '',
     Make: '',
     Model: '',
+    Watermark: undefined
   })
 
   const handleToggle = (level: string) => {
@@ -34,35 +36,111 @@ export const JPGEditor: React.FC<{ inputFile: File }> = ({ inputFile }) => {
   const handleContinue = () => {
 
     if (privacyLevel === 'editor') {
-      const cleanedFile = edit(
-        inputFile,
-        formData.Artist,
-        formData.Make,
-        formData.Model,
-        formData.Latitude,
-        formData.Longitude,
-        formData.Timezone
-      );
+        if(formData.Watermark !== null){
+            if (privacyLevel === 'editor') {
+                // First watermark the file using our backend service
+                const imageService = new ImageService(); // Create an instance of the service
+                
+                // Need to watermark before other processing
+                const watermarkPromise = imageService.addWatermark(inputFile, "Your Watermark Text");
+                
+                watermarkPromise.then(watermarkedImageUrl => {
+                  // Fetch the watermarked image
+                  return fetch(watermarkedImageUrl)
+                    .then(response => response.blob())
+                    .then(watermarkedBlob => {
+                      // Create a File object from the blob to pass to the edit function
+                      const watermarkedFile = new File([watermarkedBlob], inputFile.name, { type: inputFile.type });
+                      
+                      // Continue with your existing edit function using the watermarked file
+                      return edit(
+                        watermarkedFile,
+                        formData.Artist,
+                        formData.Make,
+                        formData.Model,
+                        formData.Latitude,
+                        formData.Longitude,
+                        formData.Timezone
+                      );
+                    });
+                })
+                .then(blob => {
+                  // Create a URL for the blob
+                  const blobUrl = URL.createObjectURL(blob);
+                  // Create a download link
+                  const downloadLink = document.createElement('a');
+                  downloadLink.href = blobUrl;
+                  downloadLink.download = `cleaned_watermarked_${inputFile.name}`;
+                  // Append to body, click, and remove
+                  document.body.appendChild(downloadLink);
+                  downloadLink.click();
+                  document.body.removeChild(downloadLink);
+                  // Release the blob URL to free memory
+                  URL.revokeObjectURL(blobUrl);
+                })
+                .catch(error => {
+                  console.error("Error in watermarking process:", error);
+                  alert("Failed to watermark and process the image.");
+                });
+              } else {
+                // Your existing code for other privacy levels
+                const cleanedFile = edit(
+                  inputFile,
+                  formData.Artist,
+                  formData.Make,
+                  formData.Model,
+                  formData.Latitude,
+                  formData.Longitude,
+                  formData.Timezone
+                );
+                cleanedFile.then(blob => {
+                  // Create a URL for the blob
+                  const blobUrl = URL.createObjectURL(blob);
+                  // Create a download link
+                  const downloadLink = document.createElement('a');
+                  downloadLink.href = blobUrl;
+                  downloadLink.download = `cleaned_${inputFile.name}`;
+                  // Append to body, click, and remove
+                  document.body.appendChild(downloadLink);
+                  downloadLink.click();
+                  document.body.removeChild(downloadLink);
+                  // Release the blob URL to free memory
+                  URL.revokeObjectURL(blobUrl);
+                });
+            }
+        }
+        else{
+            const cleanedFile = edit(
+            inputFile,
+            formData.Artist,
+            formData.Make,
+            formData.Model,
+            formData.Latitude,
+            formData.Longitude,
+            formData.Timezone
+        );
 
-      cleanedFile.then(blob => {
-        // Create a URL for the blob
-        const blobUrl = URL.createObjectURL(blob);
+        cleanedFile.then(blob => {
+            // Create a URL for the blob
+            const blobUrl = URL.createObjectURL(blob);
 
-        // Create a download link
-        const downloadLink = document.createElement('a');
-        downloadLink.href = blobUrl;
-        downloadLink.download = `cleaned_${inputFile.name}.jpg`;
+            // Create a download link
+            const downloadLink = document.createElement('a');
+            downloadLink.href = blobUrl;
+            downloadLink.download = `cleaned_${inputFile.name}.jpg`;
 
-        // Append to body, click, and remove
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
+            // Append to body, click, and remove
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
 
-        // Release the blob URL to free memory
-        URL.revokeObjectURL(blobUrl);
-      }).catch(error => {
-        console.error("Error downloading file:", error);
-      });
+            // Release the blob URL to free memory
+            URL.revokeObjectURL(blobUrl);
+            
+            }).catch(error => {
+            console.error("Error downloading file:", error);
+            });
+        }
     }
     else if (privacyLevel === 'standard') {
       strip(inputFile).then(blob => {
@@ -209,6 +287,15 @@ export const JPGEditor: React.FC<{ inputFile: File }> = ({ inputFile }) => {
                 type="text"
                 name="Model"
                 value={formData.Model}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>Watermark</label>
+              <input
+                type="text"
+                name="Watermark"
+                value={formData.Watermark}
                 onChange={handleInputChange}
               />
             </div>
