@@ -6,56 +6,39 @@ import union from "/Users/antoniakwan/CougHacks25/src/client/app/Union.svg";
 import vector from "/Users/antoniakwan/CougHacks25/src/client/app/Vector.svg";
 import rectangle from "/Users/antoniakwan/CougHacks25/src/client/app/Rectangle 4936.svg";
 
-import { PoopButtFart } from './poopbuttfart'; // 🆕 Import the new page
-
 export const Page: React.FC = () => {
-  const [inputFile, setInputFile] = useState<File | null>(null);
+    const [inputFile, setInputFile] = useState<File | null>(null);
   const [fixed, setFixed] = useState<boolean>(false);
   const [outputFile, setOutputFile] = useState<Blob | null>(null);
-  const [showHome, setGoHome] = useState(false); // 🆕 Page toggle
-  const [showPoopButtFart, setGoPoopButtFart] = useState(false); // 🆕 Page toggle
 
-  const goPoopButtFart = () => {
-    setGoPoopButtFart(true);
-  };
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setInputFile(event.target.files ? event.target.files[0] : null);
-    setFixed(false);
-  };
-
-  const goHome = () => {
-    setGoHome(true);
-  };
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) : void => {
+    setInputFile(event.target.files ? event.target.files[0] : null)
+    setFixed(false)
+  }
 
   const handleDownload = () => {
-    if (!inputFile || !outputFile) return;
+    if (!inputFile) return
+    if (!outputFile) return
+  
     const url = URL.createObjectURL(outputFile);
     const a = document.createElement('a');
     a.href = url;
     a.download = inputFile.name;
     a.click();
     URL.revokeObjectURL(url);
-  };
+  }
 
-  const handleUpload = (): void => {
-    console.log("Upload button pressed.");
-    setFixed(true);
-  };
+
+  const handleUpload = () : void => {
+    console.log("Upload button pressed.")
+    setFixed(true)
+  }
 
   useEffect(() => {
-    if (!fixed || !inputFile) return;
-    ImageScrubber.strip(inputFile).then((b) => setOutputFile(b));
-  }, [fixed, inputFile]);
-
-  // 🧠 Show the alternate page if toggled
-  if (showPoopButtFart) {
-    return <PoopButtFart />;
-  }
-
-  if (showHome) {
-    return <Page />;
-  }
+    if (!fixed) return
+    if (!inputFile) return
+    ImageScrubber.strip(inputFile).then(b => setOutputFile(b))
+  }, [fixed, inputFile])
 
   return (
     <div className="page">
@@ -85,12 +68,10 @@ export const Page: React.FC = () => {
           onChange={handleFileChange}
           style={{ display: 'none' }}
         />
+        <img className="union" alt="Union" src={union} />
 
-        {/* 👇 when clicked, flips to PoopButtFart page */}
-        <button className="union" onClick={goHome}><img src={union} alt="Union" /></button>
-        <button className="text-wrapper-8" onClick={goPoopButtFart}>About</button>
-
-    
+        <div className="text-wrapper-7">FAQ</div>
+        <div className="text-wrapper-8">About</div>
         <div className="text-wrapper-9">traceless.io</div>
 
         <img

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { ImageScrubber } from '~/scrubbers/ImageScrubber';
-import "./style.css";
+import "./about.css";
 import tempimagewknoed1 from "/Users/antoniakwan/CougHacks25/src/client/app/Screenshot_2025-04-04_at_6.59.20_PM-removebg-preview.png";
 import union from "/Users/antoniakwan/CougHacks25/src/client/app/Union.svg";
 import vector from "/Users/antoniakwan/CougHacks25/src/client/app/Vector.svg";
 import rectangle from "/Users/antoniakwan/CougHacks25/src/client/app/Rectangle 4936.svg";
 
-import { PoopButtFart } from './poopbuttfart'; // 🆕 Import the new page
+import { Page } from './landing'; // 🆕 Import the new page
 
-export const Page: React.FC = () => {
+export const PoopButtFart: React.FC = () => {
   const [inputFile, setInputFile] = useState<File | null>(null);
   const [fixed, setFixed] = useState<boolean>(false);
   const [outputFile, setOutputFile] = useState<Blob | null>(null);
@@ -60,31 +60,28 @@ export const Page: React.FC = () => {
   return (
     <div className="page">
       <div className="overlap-group">
-        <div className="div" />
+        
         <img className="rectangle" alt="rectangle" src={rectangle} />
-        <div className="text-wrapper">Clean Files. Clean Slate.</div>
 
-        <div className="text-wrapper-2">Own your presence.</div>
-        <div className="text-wrapper-3">Own your presence.</div>
-        <div className="text-wrapper-4">Own your presence.</div>
+        <div className="text-wrapper-2">OEHOWFHOIEFJ.</div>
+        <div className="text-wrapper-3">About Traceless.io.</div>
+        <div className="text-wrapper-4">IEOJWOFEJOEIFJe.</div>
 
-        <div className="text-wrapper-5">Guard your privacy.</div>
-
-        <p className="p">click here to upload files</p>
-
-        <div className="text-wrapper-6">erase your trace.</div>
-
-        <img className="vector" alt="Vector" src={vector} />
 
         <div className="rectangle-2" />
         <div className="rectangle-3" />
-        <label htmlFor="inputbox" className="rectangle-empty" />
-        <input
-          id="inputbox"
-          type="file"
-          onChange={handleFileChange}
-          style={{ display: 'none' }}
-        />
+        <label htmlFor="inputbox" className="about1" />      
+        <p className="text-wrapper">
+        Traceless.io is a website where you can upload pdfs or images in order
+        to analyze the information that can be gleaned from it to be aware of
+        what information is being shared to remove information you are
+        uncomfortable sharing
+      </p>
+        
+        <label htmlFor="inputbox" className="about2" />
+
+        
+
 
         {/* 👇 when clicked, flips to PoopButtFart page */}
         <button className="union" onClick={goHome}><img src={union} alt="Union" /></button>
@@ -93,11 +90,6 @@ export const Page: React.FC = () => {
     
         <div className="text-wrapper-9">traceless.io</div>
 
-        <img
-          className="tempimagewknoed"
-          alt="Tempimagewknoed"
-          src={tempimagewknoed1}
-        />
       </div>
     </div>
   );
