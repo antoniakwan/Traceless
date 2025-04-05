@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './editor.css'
 import { useLocation } from 'react-router';
-import { scrubPDF } from '~/scrubbers/PdfScrubber';
+import { scrubPDF } from '../scrubbers/PdfScrubber';
 
 const PDFComponent = () => {
   const [privacyLevel, setPrivacyLevel] = useState('standard');
