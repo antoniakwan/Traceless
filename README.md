@@ -1,6 +1,6 @@
 /-
 CougHacks 25.
-*Traceless*
+*Traceless* <br />
 The final project, Traceless scrubs clean images or pdf's metadata before the user upload to sharing their file. This prevent user data and private info leaking out to companies or to stalkers or other threats. Traceless also has feature to completely recontruct the pixels to eliminate every single possible trace for the image. And Traceless does not just protect the user's metadata, it utilizes an (optional) AI analyzation to warn the user about potential privacy leak through the image or any other info in the image that the user may not want to leak but accidentally overlooked. This is just the very start, future add on including watermarking (Can't hook it to the website in time), better ui and accessibility, more datatype support, mass file editing and video data scrub and analyzation, meta data viewer, picture threat marking, and much much more. 
 
 
