@@ -6,8 +6,7 @@ import { PDFEditor } from './pdfEditor'
 import union from '../images/Union.svg'
 import './landing.css'
 
-
-type PageState = 'About' | 'Home' | 'JPGEditor' | 'PDFEditor'
+import {type PageState} from './types'
 
 const Navbar : React.FC<{setPage : ((a : PageState) => void)}> = ({setPage}) => {
   // return <>
@@ -49,13 +48,10 @@ export const Landing : React.FC = () => {
   } 
 
   const toRender = {
-    About : <><About/></>,
-    Home : <><Home setInputFile={handleFile}/></>,
-    JPGEditor : inputFile ? <JPGEditor inputFile={inputFile}/> : <p>Error.</p>,
-    PDFEditor : inputFile ? <PDFEditor inputFile={inputFile}/> : <p>Error.</p>
+    About : <><About setPage={setPage}/></>,
+    Home : <><Home setPage={setPage} setInputFile={handleFile}/></>,
+    JPGEditor : inputFile ? <><Navbar setPage={setPage}/><JPGEditor inputFile={inputFile}/></> : <p>Error.</p>,
+    PDFEditor : inputFile ? <><Navbar setPage={setPage}/><PDFEditor inputFile={inputFile}/></> : <p>Error.</p>
   }
-  return <div>
-    <Navbar setPage={setPage}/>
-    {toRender[page]}
-  </div>
+  return toRender[page]
 }

@@ -1,0 +1,1 @@
+export type PageState = 'About' | 'Home' | 'JPGEditor' | 'PDFEditor'

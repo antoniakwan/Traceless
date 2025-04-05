@@ -14,16 +14,12 @@
     width: 1189px;
   }
 
-  .rectangle {
-    background-color: #212121;
-    border: 3px dashed;
-    border-color: #abebffd9;
-    border-radius: 45px;
-    height: 288px;
-    left: 92px;
+  .page .rectangle {
+    height: 900px;  /* Adjusted */
+    left: 180px;    /* Adjusted */
     position: absolute;
-    top: 304px;
-    width: 379px;
+    top: 0px;      /* Adjusted */
+    width: 2500px;  /* Adjusted */
   }
 
   .text-wrapper {
@@ -78,6 +74,7 @@
     top: 111px;
     width: 558px;
   }
+  .about1
 
   .p {
     color: #7a7a7a;
@@ -151,7 +148,7 @@
     height: 28px;
     left: 1018px;
     position: absolute;
-    top: 12px;
+    top: 20px;
     width: 31px;
   }
 
@@ -181,26 +178,4 @@
     top: 6px;
     width: 350px;
   }
-}
-
-/* The background rectangle. Not in use right now. */
-.bgr {
-  border: 50px solid;
-  border-color: transparent;
-  border-image: conic-gradient(from 180deg at 50% 50%,
-      rgba(89, 216, 255, 0.65) 6%,
-      rgba(172, 235, 255, 0.65) 25%,
-      rgba(0, 129, 168, 0.65) 47%,
-      rgba(219, 247, 255, 0.65) 66%,
-      rgba(36, 108, 131, 0.65) 88%) 1;
-  filter: blur(20px);
-  height: 785px;
-  /* Adjusted */
-  left: 205px;
-  /* Adjusted */
-  position: absolute;
-  top: 49px;
-  /* Adjusted */
-  width: 1565px;
-  /* Adjusted */
 }

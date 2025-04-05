@@ -2,42 +2,47 @@ import React, { useState } from 'react';
 import "./home.css";
 import union from "../images/Union.svg";
 import vector from "../images/Vector.svg";
-import rectangle from "../images/BackgroundRectangle.svg";
+import rectangle from "../images/Rectangle.svg";
 import { About } from './about';
+import fingerprint from '../images/Fingerprint.png'
 
+import { type PageState } from './types'
 
-export const Home : React.FC<{setInputFile : (f : File | null) => void}> = ({setInputFile}) => {
+export const Home : React.FC<{setPage : (p : PageState) => void, setInputFile : (f : File | null) => void}> = ({setPage, setInputFile}) => {
 
+  
   return (
     <div className="page">
       <div className="overlap-group">
-        <div className='bgr'/>
         <div className="div" />
         <img className="rectangle" alt="rectangle" src={rectangle} />
         <div className="text-wrapper">Clean Files. Clean Slate.</div>
 
-        
-
-        <div className="text-wrapper-2">Own your presence.</div>
-        <div className="text-wrapper-3">Own your presence.</div>
-        <div className="text-wrapper-4">Own your presence.</div>
-
-        <div className="text-wrapper-5">Guard your privacy.</div>
-
-        <div className="p">click here to upload files <input
+        <input
           id="inputbox"
           type="file"
           onChange={e => setInputFile(e.target.files ? e.target.files[0] : null)}
           style={{ display: 'none' }}
-        /></div>
+        />
+
+        <div className="text-wrapper-3">Own your presence.</div>
+
+        <div className="text-wrapper-5">Guard your privacy.</div>
+
+        <p className="p">click here to upload files</p>
 
         <div className="text-wrapper-6">erase your trace.</div>
 
-        <img className="vector" alt="Vector" src={vector} />
+        <img className="vector" src={vector} />
 
+        <img className="fingerprint" src={fingerprint} />
+
+        <button className="union" onClick={() => setPage('Home')}><img src={union} alt="Union" /></button>
+        <button className="text-wrapper-8" onClick={() => setPage('About')}>About</button>
+    
+        <div className="text-wrapper-9">traceless.io</div>
+        <div className="rectangle-3" />
         <label htmlFor="inputbox" className="rectangle-empty" />
-
-        
     
       </div>
     </div>
@@ -48,6 +53,7 @@ export const Home : React.FC<{setInputFile : (f : File | null) => void}> = ({set
 
 /*
 
+ setInputFile(e.target.files ? e.target.files[0] : null)}
 const handleDownload = () => {
     if (!inputFile || !outputFile) return;
     const url = URL.createObjectURL(outputFile);
