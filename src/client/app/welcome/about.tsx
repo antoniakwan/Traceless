@@ -5,7 +5,7 @@ import rectangle from "../Rectangle 4936.svg";
 
 import { Page } from './landing'; // 🆕 Import the new page
 
-export const PoopButtFart: React.FC = () => {
+export const About: React.FC = () => {
   const [showHome, setGoHome] = useState(false); // 🆕 Page toggle
 
   if (showHome) {
