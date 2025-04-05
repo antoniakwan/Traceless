@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ImageScrubber } from '~/scrubbers/ImageScrubber';
-
+import {scrubPDF} from '~/scrubbers/PdfScrubber'; 
 // Define a proper interface for the styles
 interface Styles {
   container: React.CSSProperties;
@@ -45,7 +45,14 @@ export const Landing: React.FC = () => {
   useEffect(() => {
     if (!fixed) return
     if (!inputFile) return
-    ImageScrubber.strip(inputFile).then(b => setOutputFile(b))
+    const fileType: string | undefined = inputFile.name.split(".").pop();
+    if(!fileType) return;
+    else if(fileType === "pdf"){
+        scrubPDF(inputFile).then(b => setOutputFile(b));
+    }
+    else if(['jpg', 'jpeg'].includes(fileType)){
+        ImageScrubber.strip(inputFile).then(b => setOutputFile(b))
+    }
   }, [fixed, inputFile])
 
   return (
