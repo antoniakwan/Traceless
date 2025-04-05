@@ -5,13 +5,21 @@ import Piexif from 'piexifjs';
 * @param file - The JPEG file
 * @returns A Blob of the cleaned image
 */
-export const strip = async (file : File) : Promise<Blob> =>
+export const strip = async (file : File) : Promise<Blob> => // Standard
   dataURLToBlob(Piexif.remove(await readFileAsDataURL(file)))
 
-export const edit = async (file: File, artist: String, make: String, model: String, latitude: number, longitude: number, dateTime: Date, timeZone: number) : Promise<Blob> =>
-  dataURLToBlob(await editData(file, artist, make, model, latitude, longitude, dateTime, timeZone))
+export const edit = async ( // Editor
+    file: File, 
+    artist: String, 
+    make: String, 
+    model: String, 
+    latitude: number, 
+    longitude: number, 
+    timeZone: number    
+) : Promise<Blob> =>
+  dataURLToBlob(await editData(file, artist, make, model, latitude, longitude, timeZone))
 
-export const wipeAllMetadata = async (file: File): Promise<Blob> => {
+export const wipeAll = async (file: File): Promise<Blob> => { // Paranoid
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
@@ -88,7 +96,7 @@ const dataURLToBlob = (dataURL : string) : Blob => {
  * @param timeZone - Time zone offset in minutes (e.g., -300 for UTC-5)
  * @returns A promise resolving to the image with edited EXIF data
  */
-const editData = async (file: File, artist: String, make: String, model: String, latitude: number, longitude: number, dateTime: Date, timeZone: number) : Promise<string> => {
+const editData = async (file: File, artist: String, make: String, model: String, latitude: number, longitude: number, timeZone: number) : Promise<string> => {
   try {
     const dataUrl = await readFileAsDataURL(file);
 
@@ -104,12 +112,6 @@ const editData = async (file: File, artist: String, make: String, model: String,
       // edit make and model
       exif_dict["0th"][Piexif.ImageIFD.Make] = make;
       exif_dict["0th"][Piexif.ImageIFD.Model] = model;
-    }
-
-    if (exif_dict["Exif"]) {
-      // edit DateTime
-      const dateStr = formatDateTime(dateTime, timeZone);
-      exif_dict["Exif"][Piexif.ExifIFD.DateTimeOriginal] = dateStr;
     }
 
     if (exif_dict["GPS"]) {
@@ -140,19 +142,27 @@ const editData = async (file: File, artist: String, make: String, model: String,
   }
 }
 
-const formatDateTime = (date: Date, timeZone: number): string => {
-  const offset = timeZone || new Date().getTimezoneOffset(); // Time zone offset in minutes
-  date.setMinutes(date.getMinutes() - offset); // Adjust DateTime for time zone
-
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  const seconds = String(date.getSeconds()).padStart(2, '0');
-
-  return `${year}:${month}:${day} ${hours}:${minutes}:${seconds}`;
-};
+const formatDateTime = (dateString: string, timeZone: number): string => {
+    // Convert the string to a Date object
+    const date = new Date(dateString);
+    
+    // Check if the date is valid
+    if (isNaN(date.getTime())) {
+      throw new Error("Invalid date string provided");
+    }
+    
+    const offset = timeZone || new Date().getTimezoneOffset(); // Time zone offset in minutes
+    date.setMinutes(date.getMinutes() - offset); // Adjust DateTime for time zone
+    
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    
+    return `${year}:${month}:${day} ${hours}:${minutes}:${seconds}`;
+  };
 
 // function decimalToDMS(decimalDegree: number): string {
 //   const degrees = Math.floor(decimalDegree);

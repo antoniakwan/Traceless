@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import '../../CSS/PDF.css'
+import { useLocation } from 'react-router';
+import { scrubPDF } from '~/scrubbers/PdfScrubber';
 
 const PDFComponent = () => {
   const [privacyLevel, setPrivacyLevel] = useState('standard');
@@ -13,6 +15,9 @@ const PDFComponent = () => {
     createDate: '',
     modDate: ''
   });
+  const location = useLocation();
+  const { file } = location.state || {};
+  const baseName = (file instanceof File)? (file.name.split(".").reverse()) : "NOTHING";
 
   const handleToggle = (level: string) => {
     setPrivacyLevel(level);
@@ -26,10 +31,64 @@ const PDFComponent = () => {
     });
   };
 
-  const handleContinue = () => {
-    console.log(`Privacy Level Selected: ${privacyLevel}`);
+  const handleContinue = () => {    
+    if(file === null) {
+        throw "cannot have empty file";
+    }
+
     if (privacyLevel === 'editor') {
-      console.log('Form Data:', formData);
+        const cleanedPdf = scrubPDF(
+            file,
+            formData.fileName,
+            formData.author,
+            formData.subject,
+            formData.subject.split(" "),
+            formData.producer,
+            formData.creator,
+            new Date(formData.createDate),
+            new Date(formData.modDate),
+        )
+        cleanedPdf.then(blob => {
+            // Create a URL for the blob
+            const blobUrl = URL.createObjectURL(blob);
+            
+            // Create a download link
+            const downloadLink = document.createElement('a');
+            downloadLink.href = blobUrl;
+            downloadLink.download = `cleaned_${baseName}.pdf`; // Set your desired filename
+            
+            // Append to body, click, and remove
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            
+            // Release the blob URL to free memory
+            URL.revokeObjectURL(blobUrl);
+          }).catch(error => {
+            console.error("Error downloading file:", error);
+          });
+    }
+    else{
+        const cleanedPdf = scrubPDF(file);
+        cleanedPdf.then(blob => {
+            // Create a URL for the blob
+            const blobUrl = URL.createObjectURL(blob);
+            
+            // Create a download link
+            const downloadLink = document.createElement('a');
+            downloadLink.href = blobUrl;
+            downloadLink.download = `cleaned_${baseName}.pdf`; // Set your desired filename
+            
+            // Append to body, click, and remove
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            
+            // Release the blob URL to free memory
+            URL.revokeObjectURL(blobUrl);
+          }).catch(error => {
+            console.error("Error downloading file:", error);
+          });
     }
   };
 
@@ -132,7 +191,7 @@ const PDFComponent = () => {
         
         <div className="button-container">
           <button className="continue-button" onClick={handleContinue}>
-            Continue
+            Download Results
           </button>
         </div>
       </div>
