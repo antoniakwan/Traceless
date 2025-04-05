@@ -84,9 +84,20 @@ const editData = async (file: File, artist: String, make: String, model: String,
     }
 
     if (exif_dict["GPS"]) {
-      // edit gps data (latitude, longitude)
-      exif_dict["GPS"][Piexif.GPSIFD.GPSLatitude] = [1, 2, 3];
-      exif_dict["GPS"][Piexif.GPSIFD.GPSLongitude] = convertToDMS(longitude);
+      // // edit gps data (latitude, longitude)
+      // exif_dict["GPS"][Piexif.GPSIFD.GPSLatitude] = [1, 2, 3];
+      // exif_dict["GPS"][Piexif.GPSIFD.GPSLongitude] = convertToDMS(longitude);
+      // Convert to DMS format
+      console.log("GPS latitude original:", exif_dict["GPS"][Piexif.GPSIFD.GPSLatitude])
+      console.log("GPS longitude original:", exif_dict["GPS"][Piexif.GPSIFD.GPSLongitude])
+      const [latitudeDMS, latitudeDirection] = convertToDMS(latitude, true);
+      const [longitudeDMS, longitudeDirection] = convertToDMS(longitude, false);
+
+      // Set GPS Latitude and Longitude with proper direction (N/S/E/W)
+      exif_dict["GPS"][Piexif.GPSIFD.GPSLatitude] = latitudeDMS;
+      exif_dict["GPS"][Piexif.GPSIFD.GPSLongitude] = longitudeDMS;
+      exif_dict["GPS"][Piexif.GPSIFD.GPSLatitudeRef] = latitudeDirection;
+      exif_dict["GPS"][Piexif.GPSIFD.GPSLongitudeRef] = longitudeDirection;
 
       console.log("GPS lat after:", exif_dict["GPS"][Piexif.GPSIFD.GPSLatitude])
       console.log("GPS lat before:", latitude)
@@ -120,17 +131,29 @@ const formatDateTime = (date: Date, timeZone: number): string => {
 //   const seconds = Math.round(((decimalDegree - degrees - minutes / 60) * 3600));
 
 
-const convertToDMS = (coordinate: number): any[] => {
-  const degrees = Math.floor(coordinate);
-  const minutes = Math.floor((coordinate - degrees) * 60);
-  const seconds = ((coordinate - degrees - minutes / 60) * 3600).toFixed(2);
+const convertToDMS = (coordinate: number, isLat: boolean): any[] => {
+  const isPositive = coordinate >= 0;
+  const absCoordinate = Math.abs(coordinate);
 
-  return [degrees, minutes, parseFloat(seconds)];
-  // const degrees = Math.floor(coordinate);
-  // const minutes = Math.floor((coordinate - degrees) * 60);
-  // const seconds = ((coordinate - degrees) * 60 - minutes) * 60;
-  
-  //return [degrees, minutes, seconds];
+  const degrees = Math.floor(absCoordinate);
+  const minutes = Math.floor((absCoordinate - degrees) * 60);
+  const secondsFloat = (absCoordinate - degrees - minutes / 60) * 3600;
+
+  // Convert seconds to rational: e.g., 2.81 => [281, 100]
+  const secondsNumerator = Math.round(secondsFloat * 10000);
+  const secondsDenominator = 10000;
+
+  const direction = isLat
+    ? isPositive ? "N" : "S"
+    : isPositive ? "E" : "W";
+
+  const dms = [
+    [degrees, 1],
+    [minutes, 1],
+    [secondsNumerator, secondsDenominator],
+  ];
+
+  return [dms, direction];
 };
 
 
