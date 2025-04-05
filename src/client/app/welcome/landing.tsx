@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ImageScrubber } from '~/scrubbers/ImageScrubber';
 import {scrubPDF} from '~/scrubbers/PdfScrubber'; 
+import { TypeEditor } from '../routes/editor';
 // Define a proper interface for the styles
 interface Styles {
   container: React.CSSProperties;
@@ -9,7 +10,7 @@ interface Styles {
   buttons: React.CSSProperties;
   button: React.CSSProperties;
 }
-
+// type Display = {kind: "PDF"} | {kind: "Image"} | {kind: "Home"};
 // const scrub = (file : File) : File => {
 //   return ImageScrubber.strip(file)
 // }
@@ -46,11 +47,16 @@ export const Landing: React.FC = () => {
     if (!fixed) return
     if (!inputFile) return
     const fileType: string | undefined = inputFile.name.split(".").pop();
-    if(!fileType) return;
+    if(!fileType){
+
+    }
     else if(fileType === "pdf"){
+        console.log("HERE");
+        <TypeEditor Type={{kind:"PDF"}}></TypeEditor>
         scrubPDF(inputFile).then(b => setOutputFile(b));
     }
     else if(['jpg', 'jpeg'].includes(fileType)){
+        <TypeEditor Type={{kind:"PDF"}}></TypeEditor>
         ImageScrubber.strip(inputFile).then(b => setOutputFile(b))
     }
   }, [fixed, inputFile])
