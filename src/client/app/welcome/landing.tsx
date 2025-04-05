@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import "./style.css";
-import union from "../Union.svg";
-import vector from "../Vector.svg";
-import rectangle from "../Rectangle 4936.svg";
+import union from "../images/Union.svg";
+import vector from "../images/Vector.svg";
+import rectangle from "../images/Rectangle 4936.svg";
 import { About } from './about';
 
 

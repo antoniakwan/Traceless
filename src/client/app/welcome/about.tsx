@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./about.css";
-import union from "../Union.svg";
-import rectangle from "../Rectangle 4936.svg";
+import union from "../images/Union.svg";
+import rectangle from "../images/BackgroundRectangle.svg";
 
 import { Page } from './landing'; // 🆕 Import the new page
 
