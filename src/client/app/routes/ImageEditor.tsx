@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import '../../CSS/PDF.css'
-
-const PDFComponent = () => {
-  const [privacyLevel, setPrivacyLevel] = useState('standard');
-  const [formData, setFormData] = useState({
-    fileName: '',
-    author: '',
-    subject: '',
-    keywords: '',
-    producer: '',
-    creator: '',
-    createDate: '',
-    modDate: ''
-  });
+import '../../CSS/PDF.css';
+const ImageComponent = () => {
+    const [privacyLevel, setPrivacyLevel] = useState('standard');
+    const [formData, setFormData] = useState({
+        fileName: '',
+        DateTime: '',
+        Timezone: '',
+        Location: '',
+        Description: '',
+        Artist: '',
+        HostComputer: '',
+        Software: '',
+    })
 
   const handleToggle = (level: string) => {
     setPrivacyLevel(level);
@@ -20,6 +19,7 @@ const PDFComponent = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    console.log(name + " " + value);
     setFormData({
       ...formData,
       [name]: value
@@ -46,6 +46,12 @@ const PDFComponent = () => {
             standard
           </div>
           <div
+            className={`toggle-option ${privacyLevel === 'paranoid' ? 'active' : ''}`}
+            onClick={() => handleToggle('paranoid')}
+          >
+            paranoid
+          </div>
+          <div
             className={`toggle-option ${privacyLevel === 'editor' ? 'active' : ''}`}
             onClick={() => handleToggle('editor')}
           >
@@ -65,65 +71,65 @@ const PDFComponent = () => {
               />
             </div>
             <div className="form-group">
-              <label>Author</label>
+              <label>Date/Time</label>
               <input 
                 type="text" 
-                name="author" 
-                value={formData.author}
+                name="DateTime" 
+                value={formData.DateTime}
                 onChange={handleInputChange}
               />
             </div>
             <div className="form-group">
-              <label>Subject</label>
+              <label>Timezone</label>
               <input 
                 type="text" 
-                name="subject" 
-                value={formData.subject}
+                name="Timezone" 
+                value={formData.Timezone}
                 onChange={handleInputChange}
               />
             </div>
             <div className="form-group">
-              <label>Keywords</label>
+              <label>Location</label>
               <input 
                 type="text" 
-                name="keywords" 
-                value={formData.keywords}
+                name="Location" 
+                value={formData.Location}
                 onChange={handleInputChange}
               />
             </div>
             <div className="form-group">
-              <label>Producer</label>
+              <label>Description</label>
               <input 
                 type="text" 
-                name="producer" 
-                value={formData.producer}
+                name="Description" 
+                value={formData.Description}
                 onChange={handleInputChange}
               />
             </div>
             <div className="form-group">
-              <label>Creator</label>
+              <label>Artist</label>
               <input 
                 type="text" 
-                name="creator" 
-                value={formData.creator}
+                name="Artist" 
+                value={formData.Artist}
                 onChange={handleInputChange}
               />
             </div>
             <div className="form-group">
-              <label>Create Date</label>
+              <label>Host Computer</label>
               <input 
                 type="date" 
-                name="createDate" 
-                value={formData.createDate}
+                name="HostComputer" 
+                value={formData.HostComputer}
                 onChange={handleInputChange}
               />
             </div>
             <div className="form-group">
-              <label>Mod Date</label>
+              <label>Software</label>
               <input 
                 type="date" 
-                name="modDate" 
-                value={formData.modDate}
+                name="Software" 
+                value={formData.Software}
                 onChange={handleInputChange}
               />
             </div>
@@ -140,4 +146,4 @@ const PDFComponent = () => {
   );
 };
 
-export default PDFComponent;
+export default ImageComponent;

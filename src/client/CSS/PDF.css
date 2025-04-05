@@ -79,3 +79,39 @@ h2 {
 .continue-button:hover {
     background-color: #375e72;
 }
+
+/* Add these styles to your existing CSS */
+.editor-container {
+    display: none;
+    margin-bottom: 30px;
+  }
+  
+  .editor-container.active {
+    display: block;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #fff;
+    font-size: 1rem;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    border: 1px solid #4fa3bf;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 0.9rem;
+  }
+  
+  .form-group input:focus {
+    outline: none;
+    border-color: #6abbda;
+  }

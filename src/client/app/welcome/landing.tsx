@@ -47,7 +47,7 @@ export const Landing: React.FC = () => {
       navigate('/editor', { state: { type: "PDF", file: inputFile } });
       // scrubPDF(inputFile).then(setOutputFile);
     } else if (['jpg', 'jpeg'].includes(fileType)) {
-      navigate('/editor', { state: { type: "Image", file: inputFile } });
+      navigate('/ImageEditor', { state: { type: "Image", file: inputFile } });
       edit(inputFile, "Mark Pock", "Canon", "Hello World", 0, 100, new Date(Date.now()), -7).then(setOutputFile)
       // strip(inputFile).then(setOutputFile)
     }
