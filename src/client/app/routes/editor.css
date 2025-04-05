@@ -1,11 +1,26 @@
+body {
+    background-color: #9BB9B5;
+    background-image: url('/src/client/app/images/Rectangle.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 900px;  /* Adjusted */
+    left: 0px;    /* Adjusted */
+    position: absolute;
+    top: 0px;      /* Adjusted */
+    width: 1600px;  /* Adjusted */
+  }
+
+
 .container {
-    width: 80%;
+    width: 100%;
     max-width: 800px;
     border-radius: 8px;
-    overflow: hidden;
-    border: 2px solid #4fa3bf;
     margin: 0 auto;
     margin-top: calc(50vh - 250px);
+    background-color: #154c5e;
+    background-size: cover;
+    background-position: center;
 }
 .page .rectangle1 {
     height: 900px;  /* Adjusted */
