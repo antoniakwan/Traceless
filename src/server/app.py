@@ -8,27 +8,13 @@ import imageAnalyze.gem as gem
 app = Flask(__name__)
 # CORS(app)  # Enable CORS for all routes
 # CORS(app, origins=["http://localhost:5173"])
-CORS(app, resources={r"/analyze": {"origins": "http://localhost:5173"}})
+CORS(app, origins=["http://localhost:5173"], supports_credentials=True)
 
 UPLOAD_FOLDER = './uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # Configure Flask to use the upload folder
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-@app.route('/analyze')
-def index():
-    # Sample data to send as JSON
-    data = {
-        'message': 'Hello from Flask, here we are, very good.',
-        # 'status': 'success',
-        # 'data': {
-        #     'id': 1,
-        #     'name': 'Sample Item'
-        # }
-    }
-    
-    return jsonify(data)
 
 @app.route('/upload', methods=['POST'])
 def upload_file():

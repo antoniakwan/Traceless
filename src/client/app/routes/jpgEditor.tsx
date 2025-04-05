@@ -15,6 +15,7 @@ export const JPGEditor: React.FC<{ inputFile: File }> = ({ inputFile }) => {
     Make: '',
     Model: '',
   })
+  const [analysis, setAnalysis] = useState<string | null>(null)
 
   const handleToggle = (level: string) => {
     setPrivacyLevel(level);
@@ -42,7 +43,11 @@ export const JPGEditor: React.FC<{ inputFile: File }> = ({ inputFile }) => {
         'Content-Type': 'multipart/form-data', // Tell the server that the body contains a file
       },
     })
-    .then(r => {console.log("Happy path"); console.log(r)}).catch(e => {console.error("Not so happy path"); console.error(e)})
+    .then(r => {
+      console.log("Happy path")
+      setAnalysis(r.data)
+    })
+    .catch(e => {console.error("Not so happy path"); console.error(e)})
   }, [transmit, inputFile])
 
   const handleContinue = () => {
@@ -156,10 +161,15 @@ export const JPGEditor: React.FC<{ inputFile: File }> = ({ inputFile }) => {
         {privacyLevel === 'AI' && (
           <div className="button-container">
           <button className="continue-button" onClick={handleScan} disabled={!inputFile}>
-            Ai SCAN
+          Faces & People: Several individuals are clearly visible, potentially revealing their identities.
+Clothing & Accessories: Hoodies with a logo, possibly indicating a team or organization affiliation, which could link the individuals to a specific group or location.
+Screen Content: One person is holding what appears to be a remote or small device, potentially showing a screen or interface that could reveal information.
+The image shows a group of people, likely involved in a team or project, with visible faces and clothing that could identify them or their affiliations. The device being held by one person may also display potentially sensitive information.
           </button>
         </div> 
         )}
+        {privacyLevel === 'AI' && <p>{analysis ? "Loading..." : analysis}</p>}
+
 
         {privacyLevel === 'editor' && (
           <div className="editor-container active">
