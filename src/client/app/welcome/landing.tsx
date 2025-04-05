@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { ImageScrubber } from '~/scrubbers/ImageScrubber';
 
 // Define a proper interface for the styles
 interface Styles {
@@ -9,32 +10,43 @@ interface Styles {
   button: React.CSSProperties;
 }
 
-const scrub = (file : File) : File => {
-  return file
-}
+// const scrub = (file : File) : File => {
+//   return ImageScrubber.strip(file)
+// }
 
 export const Landing: React.FC = () => {
   const [inputFile, setInputFile] = useState<File | null>(null);
-  const [outputFile, setOutputFile] = useState<File | null>(null);
+  const [fixed, setFixed] = useState<boolean>(false);
+  const [outputFile, setOutputFile] = useState<Blob | null>(null);
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) : void =>
-    setInputFile(event.target.files ? event.target.files[0] : null);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) : void => {
+    setInputFile(event.target.files ? event.target.files[0] : null)
+    setFixed(false)
+  }
 
-  const handleDownload = (): void => {
+  const handleDownload = () => {
+    if (!inputFile) return
     if (!outputFile) return
-
+  
     const url = URL.createObjectURL(outputFile);
     const a = document.createElement('a');
     a.href = url;
-    a.download = outputFile.name;
+    a.download = inputFile.name;
     a.click();
     URL.revokeObjectURL(url);
   }
 
+
   const handleUpload = () : void => {
-    if (inputFile == null) return
-    setOutputFile(scrub(inputFile))
+    console.log("Upload button pressed.")
+    setFixed(true)
   }
+
+  useEffect(() => {
+    if (!fixed) return
+    if (!inputFile) return
+    ImageScrubber.strip(inputFile).then(b => setOutputFile(b))
+  }, [fixed, inputFile])
 
   return (
     <div style={styles.container}>
