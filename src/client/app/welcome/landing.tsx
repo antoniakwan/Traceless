@@ -40,12 +40,14 @@ export const Landing: React.FC = () => {
     <div style={styles.container}>
       <div style={styles.card}>
         <h2>Upload and Download Files</h2>
-        <label htmlFor="inputbox">{inputFile ? inputFile.name : "No file selected"}</label>
+        <label htmlFor="inputbox">{inputFile ? "" : "No file selected"}</label>
+    
         <input
           id="inputbox"
           type="file"
           onChange={handleFileChange}
           style={styles.input}
+
         />
         <div style={styles.buttons}>
           <button onClick={handleDownload} style={styles.button} disabled={!inputFile}>
@@ -85,6 +87,7 @@ const styles: Styles = {
     borderRadius: '4px',
     border: '1px solid #ccc',
     color: 'black',
+    display : '',
   },
   buttons: {
     display: 'flex',
