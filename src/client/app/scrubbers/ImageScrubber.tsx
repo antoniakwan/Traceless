@@ -9,13 +9,13 @@ export const strip = async (file : File) : Promise<Blob> => // Standard
   dataURLToBlob(Piexif.remove(await readFileAsDataURL(file)))
 
 export const edit = async ( // Editor
-    file: File, 
-    artist: String, 
-    make: String, 
-    model: String, 
-    latitude: number, 
-    longitude: number, 
-    timeZone: number    
+  file: File, 
+  artist: String, 
+  make: String, 
+  model: String, 
+  latitude: number, 
+  longitude: number, 
+  timeZone: number    
 ) : Promise<Blob> =>
   dataURLToBlob(await editData(file, artist, make, model, latitude, longitude, timeZone))
 
@@ -47,19 +47,6 @@ export const wipeAll = async (file: File): Promise<Blob> => { // Paranoid
     reader.readAsDataURL(file);
   });
 };
-
-// export const strip = async (file : File) : Promise<Blob> => {
-//   const r = new FileReader()
-//   r.onloadend = e => {
-//     Piexif.load(e.target?.result)
-//   }
-// }
-
-
-
-// export const customize = async (file: File) : Promise<Blob> => {
-  
-// }
 
 const readFileAsDataURL = (file : File) : Promise<string> => new Promise((resolve, reject) => {
   const reader = new FileReader();
@@ -115,9 +102,6 @@ const editData = async (file: File, artist: String, make: String, model: String,
     }
 
     if (exif_dict["GPS"]) {
-      // // edit gps data (latitude, longitude)
-      // exif_dict["GPS"][Piexif.GPSIFD.GPSLatitude] = [1, 2, 3];
-      // exif_dict["GPS"][Piexif.GPSIFD.GPSLongitude] = convertToDMS(longitude);
       // Convert to DMS format
       console.log("GPS latitude original:", exif_dict["GPS"][Piexif.GPSIFD.GPSLatitude])
       console.log("GPS longitude original:", exif_dict["GPS"][Piexif.GPSIFD.GPSLongitude])
@@ -164,12 +148,6 @@ const formatDateTime = (dateString: string, timeZone: number): string => {
     return `${year}:${month}:${day} ${hours}:${minutes}:${seconds}`;
   };
 
-// function decimalToDMS(decimalDegree: number): string {
-//   const degrees = Math.floor(decimalDegree);
-//   const minutes = Math.floor((decimalDegree - degrees) * 60);
-//   const seconds = Math.round(((decimalDegree - degrees - minutes / 60) * 3600));
-
-
 const convertToDMS = (coordinate: number, isLat: boolean): any[] => {
   const isPositive = coordinate >= 0;
   const absCoordinate = Math.abs(coordinate);
@@ -194,21 +172,3 @@ const convertToDMS = (coordinate: number, isLat: boolean): any[] => {
 
   return [dms, direction];
 };
-
-
-const loadData = async (
-  file : File,
-  // exifTag : number
-) : Promise<string> => {
-  // const url = URL.createObjectURL(file)
-  // console.log(url)
-  // const exif_dict = Piexif.load(url)
-  // URL.revokeObjectURL(url)
-  const dataUrl = await readFileAsDataURL(file);
-  console.log("Data URL starts with:", dataUrl.slice(0, 30));
-  const exif_dict = Piexif.load(dataUrl);
-  let x = exif_dict["0th"]
-  if (x === undefined) throw "Exif dictionary undefined."
-  // x[Piexif.ImageIFD.Artist] = "Mark Pock"
-  return Piexif.dump(exif_dict)
-}

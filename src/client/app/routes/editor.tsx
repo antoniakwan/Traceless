@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../CSS/PDF.css'
+import './editor.css'
 import { useLocation } from 'react-router';
 import { scrubPDF } from '~/scrubbers/PdfScrubber';
 
