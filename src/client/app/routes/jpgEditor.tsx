@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import './editor.css';
-import { strip, edit, wipeAll } from '../scrubbers/ImageScrubber';
-import { useLocation } from 'react-router';
+import { strip, edit, wipeAll } from '../scrubbers/ImageScrubber';;
 
-const ImageComponent = () => {
+export const JPGEditor: React.FC<{ inputFile: File }> = ({ inputFile }) => {
   const [privacyLevel, setPrivacyLevel] = useState('standard');
   const [formData, setFormData] = useState({
     fileName: '',
@@ -14,11 +13,6 @@ const ImageComponent = () => {
     Make: '',
     Model: '',
   })
-
-  const location = useLocation();
-  const { file } = location.state || {};
-  const fileExtension = (file instanceof File) ? (file.name.split(".").pop()) : ".blank";
-  const baseName = (file instanceof File) ? (file.name.split(".").reverse()) : "NOTHING";
 
   const handleToggle = (level: string) => {
     setPrivacyLevel(level);
@@ -33,13 +27,10 @@ const ImageComponent = () => {
   };
 
   const handleContinue = () => {
-    if (file === null) {
-      throw "cannot have empty file";
-    }
 
     if (privacyLevel === 'editor') {
       const cleanedFile = edit(
-        file,
+        inputFile,
         formData.Artist,
         formData.Make,
         formData.Model,
@@ -55,7 +46,7 @@ const ImageComponent = () => {
         // Create a download link
         const downloadLink = document.createElement('a');
         downloadLink.href = blobUrl;
-        downloadLink.download = `cleaned_${baseName}.${fileExtension}`; // Set your desired filename
+        downloadLink.download = `cleaned_${inputFile.name}.jpg`;
 
         // Append to body, click, and remove
         document.body.appendChild(downloadLink);
@@ -69,14 +60,13 @@ const ImageComponent = () => {
       });
     }
     else if (privacyLevel === 'standard') {
-      const cleaned_file = strip(file);
-      cleaned_file.then(blob => {
+      strip(inputFile).then(blob => {
         const blobUrl = URL.createObjectURL(blob)
         // Create a URL for the blob 
         // Create a download link
         const downloadLink = document.createElement('a');
         downloadLink.href = blobUrl;
-        downloadLink.download = `cleaned_file.${fileExtension}`; // Set your desired filename
+        downloadLink.download = `cleaned_${inputFile.name}.jpg`;
 
         // Append to body, click, and remove
         document.body.appendChild(downloadLink);
@@ -91,14 +81,14 @@ const ImageComponent = () => {
     }
     else {
       //Download
-      const cleaned_file = wipeAll(file);
+      const cleaned_file = wipeAll(inputFile);
       cleaned_file.then(blob => {
         const blobUrl = URL.createObjectURL(blob)
         // Create a URL for the blob 
         // Create a download link
         const downloadLink = document.createElement('a');
         downloadLink.href = blobUrl;
-        downloadLink.download = `cleaned_file.${fileExtension}`; // Set your desired filename
+        downloadLink.download = `cleaned_${inputFile.name}.jpg`;
 
         // Append to body, click, and remove
         document.body.appendChild(downloadLink);
@@ -208,7 +198,7 @@ const ImageComponent = () => {
         )}
 
         <div className="button-container">
-          <button className="continue-button" onClick={handleContinue} disabled={!file}>
+          <button className="continue-button" onClick={handleContinue} disabled={!inputFile}>
             Download Results
           </button>
         </div>
@@ -217,4 +207,3 @@ const ImageComponent = () => {
   );
 };
 
-export default ImageComponent;

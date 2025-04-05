@@ -182,3 +182,25 @@
     width: 350px;
   }
 }
+
+/* The background rectangle. Not in use right now. */
+.bgr {
+  border: 50px solid;
+  border-color: transparent;
+  border-image: conic-gradient(from 180deg at 50% 50%,
+      rgba(89, 216, 255, 0.65) 6%,
+      rgba(172, 235, 255, 0.65) 25%,
+      rgba(0, 129, 168, 0.65) 47%,
+      rgba(219, 247, 255, 0.65) 66%,
+      rgba(36, 108, 131, 0.65) 88%) 1;
+  filter: blur(20px);
+  height: 785px;
+  /* Adjusted */
+  left: 205px;
+  /* Adjusted */
+  position: absolute;
+  top: 49px;
+  /* Adjusted */
+  width: 1565px;
+  /* Adjusted */
+}
