@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { ImageScrubber } from '~/scrubbers/ImageScrubber';
-import {scrubPDF} from '~/scrubbers/PdfScrubber'; 
+import { strip } from '~/scrubbers/ImageScrubber';
+import { scrubPDF } from '~/scrubbers/PdfScrubber'; 
 // Define a proper interface for the styles
-interface Styles {
-  container: React.CSSProperties;
-  card: React.CSSProperties;
-  input: React.CSSProperties;
-  buttons: React.CSSProperties;
-  button: React.CSSProperties;
-}
+
 
 // const scrub = (file : File) : File => {
 //   return ImageScrubber.strip(file)
@@ -45,19 +39,19 @@ export const Landing: React.FC = () => {
   useEffect(() => {
     if (!fixed) return
     if (!inputFile) return
-    const fileType: string | undefined = inputFile.name.split(".").pop();
-    if(!fileType) return;
-    else if(fileType === "pdf"){
-        scrubPDF(inputFile).then(b => setOutputFile(b));
-    }
-    else if(['jpg', 'jpeg'].includes(fileType)){
-        ImageScrubber.strip(inputFile).then(b => setOutputFile(b))
+
+    const fileType : string | undefined = inputFile.name.split(".").pop();
+    if (!fileType) return;
+    if (fileType === "pdf"){
+      scrubPDF(inputFile).then(setOutputFile);
+    } else if (['jpg', 'jpeg'].includes(fileType)) {
+      strip(inputFile).then(setOutputFile)
     }
   }, [fixed, inputFile])
 
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
+    <div style={Styles.container}>
+      <div style={Styles.card}>
         <h2>Upload and Download Files</h2>
         <label htmlFor="inputbox">{inputFile ? "" : "No file selected"}</label>
     
@@ -65,14 +59,14 @@ export const Landing: React.FC = () => {
           id="inputbox"
           type="file"
           onChange={handleFileChange}
-          style={styles.input}
+          style={Styles.input}
 
         />
-        <div style={styles.buttons}>
-          <button onClick={handleDownload} style={styles.button} disabled={!inputFile}>
+        <div style={Styles.buttons}>
+          <button onClick={handleDownload} style={Styles.button} disabled={!inputFile}>
             Download File
           </button>
-          <button disabled={!inputFile} style={styles.button} onClick={handleUpload}>
+          <button disabled={!inputFile} style={Styles.button} onClick={handleUpload}>
             Upload File
           </button>
         </div>
@@ -81,16 +75,18 @@ export const Landing: React.FC = () => {
   );
 };
 
-const styles: Styles = {
-  container: {
+
+namespace Styles {
+  export const container : React.CSSProperties = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     height: '100vh',
     backgroundColor: '#f0f0f0',
     margin: 0,
-  },
-  card: {
+  }
+
+  export const card : React.CSSProperties = {
     textAlign: 'center',
     backgroundColor: 'white',
     padding: '20px',
@@ -98,8 +94,9 @@ const styles: Styles = {
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     width: '300px',
     color: 'black',
-  },
-  input: {
+  }
+
+  export const input : React.CSSProperties = {
     marginBottom: '20px',
     padding: '10px',
     width: '100%',
@@ -107,12 +104,14 @@ const styles: Styles = {
     border: '1px solid #ccc',
     color: 'black',
     display : '',
-  },
-  buttons: {
+  }
+
+  export const buttons : React.CSSProperties = {
     display: 'flex',
     justifyContent: 'space-around',
-  },
-  button: {
+  }
+
+  export const button : React.CSSProperties = {
     padding: '10px 20px',
     backgroundColor: '#007BFF',
     color: 'white',
@@ -120,6 +119,5 @@ const styles: Styles = {
     borderRadius: '4px',
     cursor: 'pointer',
     margin: '5px',
-  },
-};
-
+  }
+}
