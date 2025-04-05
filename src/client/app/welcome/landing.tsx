@@ -1,17 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { strip, edit } from '~/scrubbers/ImageScrubber';
-import { strip, edit } from '~/scrubbers/ImageScrubber';
 import { scrubPDF } from '~/scrubbers/PdfScrubber'; 
 import { useNavigate } from 'react-router';
 import { Styles } from 'app/Style';
 import axios from 'axios';
-import axios from 'axios';
-// Define a proper interface for the styles
-
-
-// const scrub = (file : File) : File => {
-//   return ImageScrubber.strip(file)
-// }
 
 export const Landing: React.FC = () => {
     const navigate = useNavigate();     
@@ -23,7 +15,6 @@ export const Landing: React.FC = () => {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) : void => {
     setInputFile(event.target.files ? event.target.files[0] : null)
     setFixed(false)
-    setTransmit(false)
     setTransmit(false)
   }
 
@@ -95,16 +86,9 @@ export const Landing: React.FC = () => {
       headers: {
         'Content-Type': 'multipart/form-data', // Tell the server that the body contains a file
       },
-    })
-    // axios.post('http://127.0.0.1:5000/upload', {file : inputFile})
-    .then(() => console.log("Good.")).catch(e => console.error(e))
+    }).then(() => console.log("Good."))
+      .catch(e => console.error(e))
   }, [transmit, inputFile])
-
-  const transmitImage = () => {
-    console.log("Button clicked.")
-    if (!inputFile) return
-    setTransmit(true)
-  }
 
   return (
     <div style={Styles.container}>
@@ -127,8 +111,6 @@ export const Landing: React.FC = () => {
             Upload File
           </button>
         </div>
-
-        <button onClick={transmitImage}> Sell your soul to AI </button>
 
         <button onClick={transmitImage}> Sell your soul to AI </button>
       </div>
