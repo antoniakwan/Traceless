@@ -11,6 +11,35 @@ export const strip = async (file : File) : Promise<Blob> =>
 export const edit = async (file: File, artist: String, make: String, model: String, latitude: number, longitude: number, dateTime: Date, timeZone: number) : Promise<Blob> =>
   dataURLToBlob(await editData(file, artist, make, model, latitude, longitude, dateTime, timeZone))
 
+export const wipeAllMetadata = async (file: File): Promise<Blob> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext("2d");
+
+        if (!ctx) return reject("Canvas 2D context not available");
+
+        ctx.drawImage(img, 0, 0);
+        canvas.toBlob((blob) => {
+          if (!blob) return reject("Failed to encode canvas as Blob");
+          resolve(blob);
+        }, "image/jpeg", 0.95); // you can adjust quality here
+      };
+      img.onerror = reject;
+      img.src = reader.result as string;
+    };
+
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+};
+
 // export const strip = async (file : File) : Promise<Blob> => {
 //   const r = new FileReader()
 //   r.onloadend = e => {
