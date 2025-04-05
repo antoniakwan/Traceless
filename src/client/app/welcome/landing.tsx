@@ -4,34 +4,37 @@ import { scrubPDF } from '~/scrubbers/PdfScrubber';
 import { useNavigate } from 'react-router';
 import { Styles } from 'app/Style';
 import axios from 'axios';
-
-export const Landing: React.FC = () => {
-    const navigate = useNavigate();     
-    const [inputFile, setInputFile] = useState<File | null>(null);
-    const [fixed, setFixed] = useState<boolean>(false);
-    const [outputFile, setOutputFile] = useState<Blob | null>(null);
-  const [transmit, setTransmit] = useState<boolean>(false)
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) : void => {
-    setInputFile(event.target.files ? event.target.files[0] : null)
-    setFixed(false)
-    setTransmit(false)
-  }
-import { ImageScrubber } from '~/scrubbers/ImageScrubber';
 import "./style.css";
 import tempimagewknoed1 from "/Users/antoniakwan/CougHacks25/src/client/app/Screenshot_2025-04-04_at_6.59.20_PM-removebg-preview.png";
 import union from "/Users/antoniakwan/CougHacks25/src/client/app/Union.svg";
 import vector from "/Users/antoniakwan/CougHacks25/src/client/app/Vector.svg";
 import rectangle from "/Users/antoniakwan/CougHacks25/src/client/app/Rectangle 4936.svg";
-
 import { PoopButtFart } from './poopbuttfart'; // 🆕 Import the new page
 
+// export const Landing: React.FC = () => {
+//   const navigate = useNavigate();     
+//   const [inputFile, setInputFile] = useState<File | null>(null);
+//   const [fixed, setFixed] = useState<boolean>(false);
+//   const [outputFile, setOutputFile] = useState<Blob | null>(null);
+//   const [transmit, setTransmit] = useState<boolean>(false)
+
+//   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) : void => {
+//     setInputFile(event.target.files ? event.target.files[0] : null)
+//     setFixed(false)
+//     setTransmit(false)
+//   }
+
+// }
+
+
 export const Page: React.FC = () => {
+  const navigate = useNavigate();  
   const [inputFile, setInputFile] = useState<File | null>(null);
   const [fixed, setFixed] = useState<boolean>(false);
   const [outputFile, setOutputFile] = useState<Blob | null>(null);
   const [showHome, setGoHome] = useState(false); // 🆕 Page toggle
   const [showPoopButtFart, setGoPoopButtFart] = useState(false); // 🆕 Page toggle
+  const [transmit, setTransmit] = useState<boolean>(false)
 
   const goPoopButtFart = () => {
     setGoPoopButtFart(true);
@@ -61,19 +64,10 @@ export const Page: React.FC = () => {
     setFixed(true);
   };
 
+    // 🧠 Show the alternate page if toggled
+    
+
   useEffect(() => {
-    if (!fixed || !inputFile) return;
-    ImageScrubber.strip(inputFile).then((b) => setOutputFile(b));
-  }, [fixed, inputFile]);
-
-  // 🧠 Show the alternate page if toggled
-  if (showPoopButtFart) {
-    return <PoopButtFart />;
-  }
-
-  if (showHome) {
-    return <Page />;
-  }
     if (!fixed) return
     if (!inputFile) return
 
@@ -88,7 +82,8 @@ export const Page: React.FC = () => {
       edit(inputFile, "Mark Pock", "Canon", "Hello World", 0, 100, new Date(Date.now()), -7).then(setOutputFile)
       // strip(inputFile).then(setOutputFile)
     }
-  }, [fixed, inputFile])
+  }, [fixed, inputFile]
+  )
 
   useEffect(() => {
     console.log("transmit was " + transmit)
@@ -134,6 +129,16 @@ export const Page: React.FC = () => {
         <img className="rectangle" alt="rectangle" src={rectangle} />
         <div className="text-wrapper">Clean Files. Clean Slate.</div>
 
+        <input
+          id="inputbox"
+          type="file"
+          onChange={handleFileChange}
+          style={{ display: 'none' }}
+        />
+
+        <div className="text-wrapper-9">traceless.io</div>
+
+
         <div className="text-wrapper-2">Own your presence.</div>
         <div className="text-wrapper-3">Own your presence.</div>
         <div className="text-wrapper-4">Own your presence.</div>
@@ -146,27 +151,30 @@ export const Page: React.FC = () => {
 
         <img className="vector" alt="Vector" src={vector} />
 
+        <button className="union" onClick={goHome}>
+          <img src={union} alt="Union" style={{ width: '100%', height: '100%' }} />
+        </button>
+        <button className="text-wrapper-8" onClick={goPoopButtFart}>About</button>
+
         <div className="rectangle-2" />
         <div className="rectangle-3" />
         <label htmlFor="inputbox" className="rectangle-empty" />
-    <div style={Styles.container}>
+    
+      </div>
+    </div>
+  );
+};
+
+
+/*
+
+<div style={Styles.container}>
       <div style={Styles.card}>
         <h2>Upload and Download Files</h2>
         <label htmlFor="inputbox">{inputFile ? "" : "No file selected"}</label>
     
-        <input
-          id="inputbox"
-          type="file"
-          onChange={handleFileChange}
-          style={{ display: 'none' }}
-        />
 
-        {/* 👇 when clicked, flips to PoopButtFart page */}
-        <button className="union" onClick={goHome}><img src={union} alt="Union" /></button>
-        <button className="text-wrapper-8" onClick={goPoopButtFart}>About</button>
 
-    
-        <div className="text-wrapper-9">traceless.io</div>
 
         <img
           className="tempimagewknoed"
@@ -186,7 +194,5 @@ export const Page: React.FC = () => {
         </div>
 
         <button onClick={transmitImage}> Sell your soul to AI </button>
-      </div>
-    </div>
-  );
-};
+  
+*/
