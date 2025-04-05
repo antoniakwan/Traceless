@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './editor.css';
-import { strip, edit, wipeAll } from '../scrubbers/ImageScrubber';;
+import { strip, edit, wipeAll } from '../scrubbers/ImageScrubber';
+import axios from 'axios';
 
 export const JPGEditor: React.FC<{ inputFile: File }> = ({ inputFile }) => {
   const [privacyLevel, setPrivacyLevel] = useState('standard');
-  const [sendsToAI, setSendsToAI] = useState(false);
+  const [transmit, setTransmit] = useState(false);
   const [formData, setFormData] = useState({
     fileName: '',
     Timezone: 0,
@@ -20,7 +21,7 @@ export const JPGEditor: React.FC<{ inputFile: File }> = ({ inputFile }) => {
   };
 
   const handleScan = () => {
-    setSendsToAI(true);
+    setTransmit(true);
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,6 +31,19 @@ export const JPGEditor: React.FC<{ inputFile: File }> = ({ inputFile }) => {
       [name]: value
     });
   };
+
+  useEffect(() => {
+    if (!transmit) return
+    const formData = new FormData();
+    formData.append('file', inputFile); // 'file' is the name of the field you want to send
+
+    axios.post('http://127.0.0.1:5000/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data', // Tell the server that the body contains a file
+      },
+    })
+    .then(r => console.log("Good.")).catch(e => console.error(e))
+  }, [transmit, inputFile])
 
   const handleContinue = () => {
 
