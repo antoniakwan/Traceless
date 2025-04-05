@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "./style.css";
 import union from "../images/Union.svg";
 import vector from "../images/Vector.svg";
-import rectangle from "../images/Rectangle 4936.svg";
+import rectangle from "../images/BackgroundRectangle.svg";
 import { About } from './about';
 
 
