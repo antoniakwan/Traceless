@@ -1,18 +1,20 @@
 .about {
-    background-color: #000000;
-    height: 648px;
-    overflow: hidden;
-    width: 1152px;
-  }
-  
-  .about .overlap-group {
+  background-color: #000000;
+  height: 648px;
+  overflow: hidden;
+  width: 1152px;
+}
+
+.about {
+
+  .overlap-group {
     height: 663px;
     left: -19px;
     position: relative;
     width: 1189px;
   }
-  
-  .about .rectangle {
+
+  .rectangle {
     background-color: #212121;
     border: 3px dashed;
     border-color: #abebffd9;
@@ -23,8 +25,8 @@
     top: 304px;
     width: 379px;
   }
-  
-  .about .text-wrapper {
+
+  .text-wrapper {
     color: #abebff;
     filter: blur(24px);
     font-family: "Gotham-Medium", Helvetica;
@@ -37,8 +39,8 @@
     top: 170px;
     width: 470px;
   }
-  
-  .about .div {
+
+  .div {
     color: #abebff;
     filter: blur(24px);
     font-family: "Gotham-Medium", Helvetica;
@@ -51,8 +53,8 @@
     top: 232px;
     width: 470px;
   }
-  
-  .about .text-wrapper-2 {
+
+  .text-wrapper-2 {
     color: #abebff;
     font-family: "Gotham-Medium", Helvetica;
     font-size: 42px;
@@ -64,8 +66,8 @@
     top: 196px;
     width: 463px;
   }
-  
-  .about .rectangle-2 {
+
+  .rectangle-2 {
     background-color: #212121;
     border: 3px dashed;
     border-color: #abebffd9;
@@ -76,8 +78,8 @@
     top: 111px;
     width: 558px;
   }
-  
-  .about .p {
+
+  .p {
     color: #7a7a7a;
     font-family: "Lohit Devanagari-Regular", Helvetica;
     font-size: 19.2px;
@@ -89,8 +91,8 @@
     top: 324px;
     width: 323px;
   }
-  
-  .about .upload-an-image-or {
+
+  .upload-an-image-or {
     color: #7a7a7a;
     font-family: "Lohit Devanagari-Regular", Helvetica;
     font-size: 19.2px;
@@ -103,7 +105,7 @@
     width: 511px;
   }
   
-  .about .text-wrapper-3 {
+  .text-wrapper-3 {
     color: #ffffff;
     font-family: "Lohit Devanagari-Regular", Helvetica;
     font-size: 24px;
@@ -115,8 +117,8 @@
     top: 131px;
     width: 453px;
   }
-  
-  .about .rectangle-3 {
+
+  .rectangle-3 {
     border: 30px solid;
     border-color: transparent;
     border-image: conic-gradient(
@@ -135,8 +137,8 @@
     top: 35px;
     width: 1189px;
   }
-  
-  .about .rectangle-4 {
+
+  .rectangle-4 {
     background-color: #1b1b1bed;
     height: 53px;
     left: 19px;
@@ -144,16 +146,16 @@
     top: 0;
     width: 1154px;
   }
-  
-  .about .union {
+
+  .union {
     height: 28px;
     left: 1018px;
     position: absolute;
     top: 12px;
     width: 31px;
   }
-  
-  .about .text-wrapper-4 {
+
+  .text-wrapper-4 {
     color: #7a7a7a;
     font-family: "Lohit Devanagari-Regular", Helvetica;
     font-size: 24px;
@@ -165,8 +167,8 @@
     top: 5px;
     width: 79px;
   }
-  
-  .about .text-wrapper-5 {
+
+  .text-wrapper-5 {
     color: #769eabcc;
     font-family: "Gotham-Medium", Helvetica;
     font-size: 30px;
@@ -179,3 +181,4 @@
     top: 6px;
     width: 350px;
   }
+}

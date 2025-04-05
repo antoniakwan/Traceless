@@ -9,22 +9,7 @@ import tempimagewknoed1 from "../Screenshot_2025-04-04_at_6.59.20_PM-removebg-pr
 import union from "../Union.svg";
 import vector from "../Vector.svg";
 import rectangle from "../Rectangle 4936.svg";
-import { PoopButtFart } from './poopbuttfart'; // 🆕 Import the new page
-
-// export const Landing: React.FC = () => {
-//   const navigate = useNavigate();     
-//   const [inputFile, setInputFile] = useState<File | null>(null);
-//   const [fixed, setFixed] = useState<boolean>(false);
-//   const [outputFile, setOutputFile] = useState<Blob | null>(null);
-//   const [transmit, setTransmit] = useState<boolean>(false)
-
-//   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) : void => {
-//     setInputFile(event.target.files ? event.target.files[0] : null)
-//     setFixed(false)
-//     setTransmit(false)
-//   }
-
-// }
+import { PoopButtFart } from './poopbuttfart';
 
 
 export const Page: React.FC = () => {
