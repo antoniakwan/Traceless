@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import "./about.css";
-import tempimagewknoed1 from "/Users/antoniakwan/CougHacks25/src/client/app/Screenshot_2025-04-04_at_6.59.20_PM-removebg-preview.png";
-import union from "/Users/antoniakwan/CougHacks25/src/client/app/Union.svg";
-import vector from "/Users/antoniakwan/CougHacks25/src/client/app/Vector.svg";
-import rectangle from "/Users/antoniakwan/CougHacks25/src/client/app/Rectangle 4936.svg";
+import tempimagewknoed1 from "../Screenshot_2025-04-04_at_6.59.20_PM-removebg-preview.png";
+import union from "../Union.svg";
+import vector from "../Vector.svg";
+import rectangle from "../Rectangle 4936.svg";
 
 import { Page } from './landing'; // 🆕 Import the new page
 
