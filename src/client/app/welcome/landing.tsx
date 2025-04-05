@@ -64,9 +64,6 @@ export const Page: React.FC = () => {
     setFixed(true);
   };
 
-    // 🧠 Show the alternate page if toggled
-    
-
   useEffect(() => {
     if (!fixed) return
     if (!inputFile) return
@@ -122,6 +119,14 @@ export const Page: React.FC = () => {
       .catch(e => console.error(e))
   }, [transmit, inputFile])
 
+  if (showHome) {
+    return <Page />;
+  }
+
+  if (showPoopButtFart) {
+    return <PoopButtFart />;
+  }
+
   return (
     <div className="page">
       <div className="overlap-group">
@@ -136,9 +141,6 @@ export const Page: React.FC = () => {
           style={{ display: 'none' }}
         />
 
-        <div className="text-wrapper-9">traceless.io</div>
-
-
         <div className="text-wrapper-2">Own your presence.</div>
         <div className="text-wrapper-3">Own your presence.</div>
         <div className="text-wrapper-4">Own your presence.</div>
@@ -151,10 +153,10 @@ export const Page: React.FC = () => {
 
         <img className="vector" alt="Vector" src={vector} />
 
-        <button className="union" onClick={goHome}>
-          <img src={union} alt="Union" style={{ width: '100%', height: '100%' }} />
-        </button>
+        <button className="union" onClick={goHome}><img src={union} alt="Union" /></button>
         <button className="text-wrapper-8" onClick={goPoopButtFart}>About</button>
+    
+        <div className="text-wrapper-9">traceless.io</div>
 
         <div className="rectangle-2" />
         <div className="rectangle-3" />

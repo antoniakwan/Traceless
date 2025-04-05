@@ -205,6 +205,7 @@
     top: 17px;      /* Adjusted */
     width: 38px;    /* Adjusted */
     cursor: pointer;
+    z-index: 1;
   }
   
   .page .text-wrapper-7 {
@@ -231,6 +232,7 @@
     position: absolute;
     top: 20px;       /* Adjusted */
     width: 99px;    /* Adjusted */
+    z-index: 1;
   }
   
   .page .text-wrapper-9 {
@@ -245,6 +247,7 @@
     text-shadow: 0px 4px 4px #00000040;
     top: 8px;       /* Adjusted */
     width: 437px;   /* Adjusted */
+    z-index: 1;
   }
   
   .page .tempimagewknoed {
