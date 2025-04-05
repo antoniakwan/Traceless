@@ -4,6 +4,7 @@ import { strip, edit, wipeAll } from '../scrubbers/ImageScrubber';;
 
 export const JPGEditor: React.FC<{ inputFile: File }> = ({ inputFile }) => {
   const [privacyLevel, setPrivacyLevel] = useState('standard');
+  const [sendsToAI, setSendsToAI] = useState(false);
   const [formData, setFormData] = useState({
     fileName: '',
     Timezone: 0,
@@ -17,6 +18,10 @@ export const JPGEditor: React.FC<{ inputFile: File }> = ({ inputFile }) => {
   const handleToggle = (level: string) => {
     setPrivacyLevel(level);
   };
+
+  const handleScan = () => {
+    setSendsToAI(true);
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -127,7 +132,20 @@ export const JPGEditor: React.FC<{ inputFile: File }> = ({ inputFile }) => {
           >
             editor
           </div>
+          <div
+            className={`toggle-option ${privacyLevel === 'AI' ? 'active' : ''}`}
+            onClick={() => handleToggle('AI')}
+          >
+            AI scan
+          </div>
         </div>
+        {privacyLevel === 'AI' && (
+          <div className="button-container">
+          <button className="continue-button" onClick={handleScan} disabled={!inputFile}>
+            Ai SCAN
+          </button>
+        </div> 
+        )}
 
         {privacyLevel === 'editor' && (
           <div className="editor-container active">

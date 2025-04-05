@@ -101,5 +101,5 @@ And do not include \"*\" or anything since readability is very important. This i
     return(response.text)
 
 #just testing
-print(analyzeImage("C:\\Users\\zhang\\Downloads\\10m.png"))
+#print(analyzeImage("C:\\Users\\zhang\\Downloads\\10m.png"))
 
