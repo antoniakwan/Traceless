@@ -1,7 +1,12 @@
 /-
 CougHacks 25.
 *Traceless* <br />
-The final project, Traceless scrubs clean images or pdf's metadata before the user upload to sharing their file. This prevent user data and private info leaking out to companies or to stalkers or other threats. Traceless also has feature to completely recontruct the pixels to eliminate every single possible trace for the image. And Traceless does not just protect the user's metadata, it utilizes an (optional) AI analyzation to warn the user about potential privacy leak through the image or any other info in the image that the user may not want to leak but accidentally overlooked. This is just the very start, future add on including watermarking (Can't hook it to the website in time), better ui and accessibility, more datatype support, mass file editing and video data scrub and analyzation, meta data viewer, picture threat marking, and much much more. 
+
+Often users don't realize the scale of data a user is potentially releasing to the internet through an image alone. Information such as location, camera type, and date. Not only does the metadata include privacy violating information, the content in the images may also reveal any unintentional information. A licence plate, street sign, or even a reflection in the window can expose a user's information.
+
+The final project, Traceless scrubs clean images or pdf's metadata before the user upload to sharing their file. This prevent user data and private info leaking out to companies or to stalkers or other threats. Traceless also has feature to completely recontruct the pixels to eliminate every single possible trace for the image. And Traceless does not just protect the user's metadata, it utilizes an (optional) AI analyzation to warn the user about potential privacy leak through the image or any other info in the image that the user may not want to leak but accidentally overlooked. This is just the very start, future add on including watermarking (Can't hook it to the website in time), better ui and accessibility, more datatype support, mass file editing and video data scrub and analyzation, meta data viewer, picture threat marking, and much much more.
+
+
 
 Older stuff:
 *Obfuscator.*
