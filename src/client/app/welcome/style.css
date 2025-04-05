@@ -1,5 +1,5 @@
 .page {
-    background-color: #000000;
+    background-color: #a0b6b8;
     height: 900px; /* Adjusted for Mac screen */
     overflow: hidden;
     width: 1540px; /* Adjusted for Mac screen */
@@ -13,42 +13,49 @@
   }
   
   .page .div {
-    background-color: #212121;
-    border: 5px dashed;
-    border-color: #abebffd9;
-    border-radius: 75px;
+    background-color: #9bb9b5;
+    border: 3px solid;
+    border-color: #8ea9a0;
+    border-radius: 15px;
     height: 641px; /* Adjusted */
     left: 1144px;  /* Adjusted */
+    opacity: 0.6;
     position: absolute;
     top: 158px;    /* Adjusted */
     width: 563px;  /* Adjusted */
+    z-index :1;
   }
 
-  .page .about1 {
-    background-color: #212121;
-    border: 5px dashed;
-    border-color: #abebffd9;
-    border-radius: 75px;
+  /* about page big textbox */
+  .page .about1 { 
+    background-color: #A4C7BF;
+    border: 3px solid;
+    border-color: #73AFAF;
+    border-radius: 15px;
     height: 360px; /* Adjusted */
     left: 300px;  /* Adjusted */
     position: absolute;
     top: 345px;    /* Adjusted */
     width: 500px;  /* Adjusted */
+    opacity: 0.4;
   }
-
+  
+  /* about page small textbox */
   .page .about2 {
-    background-color: #212121;
-    border: 5px dashed;
-    border-color: #abebffd9;
-    border-radius: 75px;
+    background-color: #A4C7BF;
+    border: 3px solid;
+    border-color: #73AFAF;
+    border-radius: 15px;
     height: 541px; /* Adjusted */
     left: 1000px;  /* Adjusted */
     position: absolute;
     top: 178px;    /* Adjusted */
     width: 663px;  /* Adjusted */
+    opacity: 0.4;
   }
   
   .page .rectangle-4936 {
+
     left: 0 !important;
     position: absolute !important;
     top: 73px !important; /* Adjusted */
@@ -110,7 +117,7 @@
   }
   
   .page .text-wrapper-5 {
-    color: #abebff;
+    color: #A6DDD6;
     font-family: "Gotham-Medium", Helvetica;
     font-size: 53px; /* Adjusted */
     font-weight: 500;
@@ -133,10 +140,11 @@
     position: absolute;
     top: 196px;     /* Adjusted */
     width: 385px;   /* Adjusted */
+    z-index: 1;
   }
   
   .page .text-wrapper-6 {
-    color: #7a7a7a;
+    color: #514b42;
     font-family: "Lohit Devanagari-Regular", Helvetica;
     font-size: 26px; /* Adjusted */
     font-weight: 400;
@@ -146,6 +154,7 @@
     position: absolute;
     top: 266px;     /* Adjusted */
     width: 350px;   /* Adjusted */
+    z-index: 1;
   }
 
   
@@ -156,6 +165,7 @@
     position: absolute;
     top: 475px;    /* Adjusted */
     width: 390px;  /* Adjusted */
+    z-index :2;
   }
   
   .page .rectangle-2 {
@@ -177,6 +187,13 @@
     top: 49px;      /* Adjusted */
     width: 1565px;  /* Adjusted */
   }
+  .page .rectangle {
+    height: 900px;  /* Adjusted */
+    left: 180px;    /* Adjusted */
+    position: absolute;
+    top: 0px;      /* Adjusted */
+    width: 2500px;  /* Adjusted */
+  }
 
   .page .rectangle-empty {
     background-color: transparent;
@@ -187,15 +204,29 @@
     top: 158px;    /* Adjusted */
     width: 563px;  /* Adjusted */
     cursor: pointer;
+    z-index: 4;
   }
   
   .page .rectangle-3 {
-    background-color: #1b1b1bed;
+    background-color: #B2B3AC;
     height: 73px;   /* Adjusted */
     left: -50px;    /* Adjusted */
     position: absolute;
     top: 0;
     width: 1942px;  /* Adjusted */
+  }
+
+  .page .fingerprint {
+    background-blend-mode: color-dodge;
+    height: 154px;
+    left: 70px;
+    object-fit: cover;
+    position: fixed;
+    top: 600px;
+    width: 158px;
+    z-index: 2;
+    filter: invert(1);
+    opacity: 0.4;
   }
   
   .page .union {
@@ -221,8 +252,9 @@
     width: 65px;    /* Adjusted */
   }
   
+  /* About */
   .page .text-wrapper-8 {
-    color: #7a7a7a;
+    color: #FFFFFF;
     font-family: "Lohit Devanagari-Regular", Helvetica;
     font-size: 30px; /* Adjusted */
     font-weight: 400;
@@ -235,8 +267,9 @@
     z-index: 1;
   }
   
+  /* traceless.io */
   .page .text-wrapper-9 {
-    color: #769eabcc;
+    color: #FFFFFF;
     font-family: "Gotham-Medium", Helvetica;
     font-size: 37px; /* Adjusted */
     font-weight: 500;

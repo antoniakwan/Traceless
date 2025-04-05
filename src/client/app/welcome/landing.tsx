@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import "./style.css";
 import union from "../images/Union.svg";
 import vector from "../images/Vector.svg";
-import rectangle from "../images/BackgroundRectangle.svg";
+import rectangle from "../images/Rectangle.svg";
+import fingerprint from "../images/Fingerprint.png";
 import { About } from './about';
 
 
@@ -30,9 +31,7 @@ export const Page: React.FC = () => {
           style={{ display: 'none' }}
         />
 
-        <div className="text-wrapper-2">Own your presence.</div>
         <div className="text-wrapper-3">Own your presence.</div>
-        <div className="text-wrapper-4">Own your presence.</div>
 
         <div className="text-wrapper-5">Guard your privacy.</div>
 
@@ -40,14 +39,14 @@ export const Page: React.FC = () => {
 
         <div className="text-wrapper-6">erase your trace.</div>
 
-        <img className="vector" alt="Vector" src={vector} />
+        <img className="vector" src={vector} />
+
+        <img className="fingerprint" src={fingerprint} />
 
         <button className="union" onClick={() =>  setAbout(false)}><img src={union} alt="Union" /></button>
         <button className="text-wrapper-8" onClick={() => setAbout(true)}>About</button>
     
         <div className="text-wrapper-9">traceless.io</div>
-
-        <div className="rectangle-2" />
         <div className="rectangle-3" />
         <label htmlFor="inputbox" className="rectangle-empty" />
     

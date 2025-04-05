@@ -14,16 +14,12 @@
     width: 1189px;
   }
 
-  .rectangle {
-    background-color: #212121;
-    border: 3px dashed;
-    border-color: #abebffd9;
-    border-radius: 45px;
-    height: 288px;
-    left: 92px;
+  .page .rectangle {
+    height: 900px;  /* Adjusted */
+    left: 180px;    /* Adjusted */
     position: absolute;
-    top: 304px;
-    width: 379px;
+    top: 0px;      /* Adjusted */
+    width: 2500px;  /* Adjusted */
   }
 
   .text-wrapper {
@@ -78,6 +74,7 @@
     top: 111px;
     width: 558px;
   }
+  .about1
 
   .p {
     color: #7a7a7a;
@@ -151,7 +148,7 @@
     height: 28px;
     left: 1018px;
     position: absolute;
-    top: 12px;
+    top: 20px;
     width: 31px;
   }
 
