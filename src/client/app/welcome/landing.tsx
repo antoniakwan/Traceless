@@ -9,47 +9,49 @@ interface Styles {
   button: React.CSSProperties;
 }
 
+const scrub = (file : File) : File => {
+  return file
+}
+
 export const Landing: React.FC = () => {
-  const [file, setFile] = useState<File | null>(null);
+  const [inputFile, setInputFile] = useState<File | null>(null);
+  const [outputFile, setOutputFile] = useState<File | null>(null);
 
-  // Handle file upload
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    console.log("File uploaded.")
-    const selectedFile = event.target.files ? event.target.files[0] : null;
-    setFile(selectedFile);
-    console.log("File uploaded.")
-  }
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) : void =>
+    setInputFile(event.target.files ? event.target.files[0] : null);
 
-  // Handle file download
   const handleDownload = (): void => {
-    if (file) {
-      const url = URL.createObjectURL(file);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = file.name;
-      a.click();
-      URL.revokeObjectURL(url);
-    }
+    if (!outputFile) return
+
+    const url = URL.createObjectURL(outputFile);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = outputFile.name;
+    a.click();
+    URL.revokeObjectURL(url);
   }
 
-  console.log("Does anything work?")
+  const handleUpload = () : void => {
+    if (inputFile == null) return
+    setOutputFile(scrub(inputFile))
+  }
 
   return (
     <div style={styles.container}>
       <div style={styles.card}>
         <h2>Upload and Download Files</h2>
-        <label></label>
+        <label htmlFor="inputbox">{inputFile ? inputFile.name : "No file selected"}</label>
         <input
-          id = "HALLO"
+          id="inputbox"
           type="file"
           onChange={handleFileChange}
           style={styles.input}
         />
         <div style={styles.buttons}>
-          <button onClick={handleDownload} style={styles.button} disabled={!file}>
+          <button onClick={handleDownload} style={styles.button} disabled={!inputFile}>
             Download File
           </button>
-          <button disabled={!file} style={styles.button}>
+          <button disabled={!inputFile} style={styles.button} onClick={handleUpload}>
             Upload File
           </button>
         </div>
@@ -74,6 +76,7 @@ const styles: Styles = {
     borderRadius: '8px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     width: '300px',
+    color: 'black',
   },
   input: {
     marginBottom: '20px',
@@ -81,6 +84,7 @@ const styles: Styles = {
     width: '100%',
     borderRadius: '4px',
     border: '1px solid #ccc',
+    color: 'black',
   },
   buttons: {
     display: 'flex',
