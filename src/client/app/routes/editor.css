@@ -7,18 +7,27 @@
     margin: 0 auto;
     margin-top: calc(50vh - 250px);
 }
+.page .rectangle1 {
+    height: 900px;  /* Adjusted */
+    left: 180px;    /* Adjusted */
+    position: absolute;
+    top: 0px;      /* Adjusted */
+    width: 2500px;  /* Adjusted */
+    z-index:2;
+  }
 
 .header {
-    background-color: #4fa3bf;
+    background-color: #748D89;
     color: white;
     text-align: center;
     padding: 20px;
     font-size: 2.5rem;
     font-weight: bold;
+    text-shadow: 0px 4px 4px #00000040;
 }
 
 .content {
-    background-color: #1c1c1c;
+    background-color: #748D89;
     padding: 40px 20px;
     color: white;
 }
@@ -27,6 +36,7 @@ h2 {
     text-align: center;
     font-size: 2rem;
     margin-bottom: 30px;
+    text-shadow: 0px 4px 4px #00000040;
 }
 
 .toggle-container {
@@ -48,12 +58,12 @@ h2 {
 }
 
 .toggle-option.active {
-    background-color: #4fa3bf;
+    background-color: #C19D80;
     color: white;
 }
 
 .toggle-option:not(.active) {
-    background-color: #333;
+    background-color: #ADC6C3;
     color: #ddd;
 }
 
@@ -65,7 +75,7 @@ h2 {
 
 .continue-button {
     padding: 15px 40px;
-    background-color: #2a4754;
+    background-color: #ADC6C3;
     color: white;
     border: none;
     border-radius: 5px;
@@ -103,7 +113,7 @@ h2 {
   .form-group input {
     width: 100%;
     padding: 10px;
-    background-color: #333;
+    background-color: #ADC6C3;
     border: 1px solid #4fa3bf;
     border-radius: 5px;
     color: #fff;

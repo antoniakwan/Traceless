@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './editor.css'
 import { scrubPDF } from '../scrubbers/PdfScrubber';
+import rectangle from "../images/Rectangle.svg";
+
 
 export const PDFEditor: React.FC<{ inputFile: File }> = ({ inputFile }) => {
   const [privacyLevel, setPrivacyLevel] = useState('standard');
@@ -86,7 +88,9 @@ export const PDFEditor: React.FC<{ inputFile: File }> = ({ inputFile }) => {
   };
 
   return (
+    
     <div className="container">
+      
       <div className="header">PDF</div>
       <div className="content">
         <h2>Select Your Privacy Level</h2>
@@ -183,6 +187,7 @@ export const PDFEditor: React.FC<{ inputFile: File }> = ({ inputFile }) => {
         )}
 
         <div className="button-container">
+          <img className="rectangle1" alt="rectangle" src={rectangle} />
           <button className="continue-button" onClick={handleContinue}>
             Download Results
           </button>
